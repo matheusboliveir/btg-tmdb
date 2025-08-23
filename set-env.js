@@ -1,13 +1,14 @@
-const fs = require('fs');
+const fs = require("fs");
 
-const targetPath = './src/environments/environment.prod.ts';
+const targetPath = "./src/environments/environment.prod.ts";
 
 const envConfigFile = `
 export const environment = {
   production: true,
   apiUrl: 'https://api.themoviedb.org/3',
+  geoApi: 'https://ipwho.is',
   tmdbApiKey: '${process.env.TMDB_API_KEY}'
 };
 `;
 
-fs.writeFileSync(targetPath, envConfigFile, { encoding: 'utf-8' });
+fs.writeFileSync(targetPath, envConfigFile, { encoding: "utf-8" });

@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
   apiUrl: 'https://api.themoviedb.org/3',
-  tmdbApiKey: ''
+  geoApi: 'https://ipwho.is',
+  tmdbApiKey: '',
 };
