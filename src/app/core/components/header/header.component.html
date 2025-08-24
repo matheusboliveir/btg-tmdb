@@ -1,0 +1,18 @@
+<mat-toolbar class="flex gap-4">
+  <a routerLink="/home" class="w-40 flex-none">
+    <svg-icon src="assets/svg/logo.svg"></svg-icon>
+  </a>
+  <ul class="flex gap-4 justify-center flex-grow">
+    @for (item of headerItems; track $index) {
+    <li>
+      <a [routerLink]="item.route" routerLinkActive #rla="routerLinkActive">
+        @if (rla.isActive) {
+        <button mat-flat-button>{{ item.title }}</button>
+        } @else {
+        <button mat-stroked-button>{{ item.title }}</button>
+        }
+      </a>
+    </li>
+    }
+  </ul>
+</mat-toolbar>
