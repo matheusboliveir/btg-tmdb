@@ -1,0 +1,32 @@
+<mat-card class="max-w-48 cover__card" (click)="clickCard.emit(movie)">
+  <img
+    mat-card-image
+    class="cover object-cover"
+    loading="lazy"
+    [src]="imageBaseUrl + movie.poster_path"
+    (error)="failToLoadImage($event)"
+    [alt]="movie.title"
+  />
+  <mat-card-content class="flex relative">
+    <h3 class="mt-4 w-auto cover__text" [title]="movie.title">
+      {{ movie.title }}
+    </h3>
+    <div class="rating">
+      <mat-progress-spinner
+        class="rating__circle"
+        mode="determinate"
+        diameter="56"
+        [value]="movie.vote_average * 10"
+      >
+      </mat-progress-spinner>
+      <span class="rating__text"
+        >{{ movie.vote_average * 10 | number : "1.0-0" }}%</span
+      >
+    </div>
+  </mat-card-content>
+  <mat-card-footer class="p-2 flex gap-1">
+    @for (genre of firstGenres; track $index) {
+    <app-tag>{{ genre }}</app-tag>
+    }
+  </mat-card-footer>
+</mat-card>
