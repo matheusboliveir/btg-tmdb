@@ -12,6 +12,7 @@ import { environment } from '../../../environments/environment';
 import { Genre } from '../@types/genre';
 import {
   GetGenresResponse,
+  GetMoviesByGenreResponse,
   GetNowPlayingResponse,
   GetPopularResponse,
   MovieResponseWithGenres,
@@ -28,9 +29,7 @@ export class TmdbService {
 
   private genres!: BehaviorSubject<Genre[]>;
 
-  public getNowPlaying(
-    page: number
-  ): Observable<MovieResponseWithGenres> {
+  public getNowPlaying(page: number): Observable<MovieResponseWithGenres> {
     return this.loadGeoAndGenrers().pipe(
       switchMap(({ country, genres }) =>
         this.http
@@ -48,35 +47,72 @@ export class TmdbService {
   }
 
   public getPopular(page: number): Observable<MovieResponseWithGenres> {
-    return this.loadGeoAndGenrers().pipe(switchMap(({ country, genres }) =>
-      this.http.get<GetPopularResponse>(
-        `${environment.apiUrl}/movie/popular?language=${this.language}&page=${page}&region=${country}`
+    return this.loadGeoAndGenrers().pipe(
+      switchMap(({ country, genres }) =>
+        this.http
+          .get<GetPopularResponse>(
+            `${environment.apiUrl}/movie/popular?language=${this.language}&page=${page}&region=${country}`
+          )
+          .pipe(
+            map((response) => {
+              response.results = this.getMoviesGenres(response.results, genres);
+              return response as MovieResponseWithGenres;
+            })
+          )
       )
-        .pipe(
-          map((response) => {
-            response.results = this.getMoviesGenres(response.results, genres);
-            return response as MovieResponseWithGenres;
-          })
-        )));
+    );
+  }
+
+  public getMoviesByGenre(
+    genreId: number,
+    page: number
+  ): Observable<MovieResponseWithGenres> {
+    return this.loadGeoAndGenrers().pipe(
+      switchMap(({ country, genres }) =>
+        this.http
+          .get<GetMoviesByGenreResponse>(
+            `${environment.apiUrl}/discover/movie`,
+            {
+              params: {
+                with_genres: genreId.toString(),
+                sort_by: 'popularity.desc',
+                page,
+                region: country,
+                language: this.language,
+              },
+            }
+          )
+          .pipe(
+            map((response) => {
+              response.results = this.getMoviesGenres(response.results, genres);
+              (response as MovieResponseWithGenres).genrerName = genres.find(
+                (g) => g.id === genreId
+              )?.name;
+              return response as MovieResponseWithGenres;
+            })
+          )
+      )
+    );
   }
 
   private get language(): string {
     return this.geo.getLanguage();
   }
 
-  private getMoviesGenres(movies: Movie[], genresArray: Genre[]): MovieWithGenres[] {
-    const genreMap = new Map(genresArray.map(g => [g.id, g]));
-    return movies.map<MovieWithGenres>(
-      (movie) => {
-        const genres = movie.genre_ids
-          .map((id) => genreMap.get(id))
-          .filter((genre): genre is Genre => genre !== undefined);
-        return {
-          ...movie,
-          genres,
-        }
-      }
-    )
+  private getMoviesGenres(
+    movies: Movie[],
+    genresArray: Genre[]
+  ): MovieWithGenres[] {
+    const genreMap = new Map(genresArray.map((g) => [g.id, g]));
+    return movies.map<MovieWithGenres>((movie) => {
+      const genres = movie.genre_ids
+        .map((id) => genreMap.get(id))
+        .filter((genre): genre is Genre => genre !== undefined);
+      return {
+        ...movie,
+        genres,
+      };
+    });
   }
 
   private loadGeoAndGenrers(): Observable<GeoGenrer> {
@@ -104,8 +140,7 @@ export class TmdbService {
   }
 }
 
-
 type GeoGenrer = {
-  country: string,
-  genres: Genre[]
-}
+  country: string;
+  genres: Genre[];
+};

@@ -14,6 +14,9 @@ export interface GetNowPlayingResponse {
 
 export interface MovieResponseWithGenres extends GetNowPlayingResponse {
   results: MovieWithGenres[];
+  genrerName?: string;
 }
 
 export type GetPopularResponse = GetNowPlayingResponse;
+
+export type GetMoviesByGenreResponse = GetNowPlayingResponse;
