@@ -1,5 +1,5 @@
 import { Genre } from './genre';
-import { Movie, MovieWithGenres } from './movie';
+import { Cast, Crew, Movie, MovieDetail, MovieWithGenres } from './movie';
 
 export type GetGenresResponse = {
   genres: Genre[];
@@ -20,3 +20,11 @@ export interface MovieResponseWithGenres extends GetNowPlayingResponse {
 export type GetPopularResponse = GetNowPlayingResponse;
 
 export type GetMoviesByGenreResponse = GetNowPlayingResponse;
+
+export type GetMovieDetailResponse = MovieDetail;
+
+export interface GetMovieCreditsResponse {
+  id: number;
+  cast: Cast[];
+  crew: Crew[];
+}

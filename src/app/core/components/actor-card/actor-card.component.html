@@ -1,0 +1,18 @@
+<mat-card class="max-w-48 cover__card">
+  <img
+    mat-card-image
+    class="aspect-square object-cover"
+    loading="lazy"
+    [src]="imageBaseUrl + actor.profile_path"
+    (error)="failToLoadImage($event)"
+    [alt]="actor.name"
+  />
+  <mat-card-content class="flex gap-1">
+    <h3 class="text-base font-bold" [title]="actor.name">
+      {{ actor.name }}
+    </h3>
+    <p class="text-xs" [title]="actor.character">
+      {{ actor.character }}
+    </p>
+  </mat-card-content>
+</mat-card>
