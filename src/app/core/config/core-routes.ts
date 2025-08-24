@@ -1,3 +1,4 @@
 export enum CoreRoutes {
-    HOME = 'home'
+    HOME = 'home',
+    POPULAR = 'popular'
 }

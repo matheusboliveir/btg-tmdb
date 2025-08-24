@@ -12,6 +12,8 @@ export interface GetNowPlayingResponse {
   total_results: number;
 }
 
-export interface GetNowPlayingResponseWithGenres extends GetNowPlayingResponse {
+export interface MovieResponseWithGenres extends GetNowPlayingResponse {
   results: MovieWithGenres[];
 }
+
+export type GetPopularResponse = GetNowPlayingResponse;
