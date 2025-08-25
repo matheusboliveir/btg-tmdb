@@ -6,6 +6,7 @@ import { MovieWithGenres } from '../../core/@types/movie';
 import { ListMoviesResolver } from '../../core/@types/list-movies';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { combineLatest } from 'rxjs';
+import { CoreRoutes } from '../../core/config/core-routes';
 
 @UntilDestroy()
 @Component({
@@ -42,5 +43,9 @@ export class ListMoviesComponent implements OnInit {
   public onPageChange(event: PageEvent): void {
     this.currentPage = event.pageIndex + 1;
     this.router.navigate(['../', this.currentPage], { relativeTo: this.route });
+  }
+
+  public detailCard(movie: MovieWithGenres) {
+    this.router.navigate([CoreRoutes.DETAIL_MOVIE, movie.id]);
   }
 }

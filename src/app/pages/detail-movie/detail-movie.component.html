@@ -1,51 +1,70 @@
-<section>
-  <div>
+<section class="flex gap-4 flex-col">
+  <div
+    class="flex gap-4 rounded-2xl bg-center bg-cover relative lg:flex-row sm:flex-col"
+    [ngStyle]="{
+      'background-image': 'url(' + bgBaseUrl + movie.poster_path + ')'
+    }"
+  >
     <img
       [src]="imageBaseUrl + movie.poster_path"
       [alt]="movie.original_title"
+      class="rounded-2xl shadow sm:w-full lg:w-1/4 z-10"
     />
-    <div>
-      <h2>
-        {{ movie.title }} ({{ movie.release_date | date : "dd/MM/yyyy" }})
-      </h2>
-      <legend>{{ movie.tagline }}</legend>
-      <div>
-        @for (genre of movie.genres; track $index) {
-        <app-tag>{{ genre.name }}</app-tag>
-        }
+    <div class="flex sm:p-4 gap-2 flex-col justify-evenly z-10">
+      <div class="flex gap-2 flex-col">
+        <h2 class="text-2xl font-semibold">
+          {{ movie.title }} ({{ movie.release_date | date : "dd/MM/yyyy" }})
+        </h2>
+        <legend class="text-base">{{ movie.tagline }}</legend>
+        <div class="flex gap-2">
+          @for (genre of movie.genres; track $index) {
+          <app-tag>{{ genre.name }}</app-tag>
+          }
+        </div>
       </div>
-      <h3>Sinopse</h3>
-      <p>{{ movie.overview }}</p>
-      <h3>Diretor</h3>
-      <p>{{ director }}</p>
-      <h3>Roteirista</h3>
-      <p>{{ screenplay }}</p>
-    </div>
-    <article>
-      <div>
+      <div class="flex gap-8 flex-col">
         <div>
-          <h4 class="font-semibold text-lg">Título original</h4>
+          <h3 class="text-lg font-bold">Sinopse</h3>
+          <p>{{ movie.overview }}</p>
+        </div>
+        <div class="flex gap-4">
+          <div>
+            <h3 class="text-base font-medium">Diretor</h3>
+            <p class="text-sm">{{ director }}</p>
+          </div>
+          <div>
+            <h3 class="text-base font-medium">Roteirista</h3>
+            <p class="text-sm">{{ screenplay }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-8">
+        <div>
+          <h4 class="font-medium text-lg">Título original</h4>
           <p>{{ movie.original_title }}</p>
         </div>
         <div>
-          <h4 class="font-semibold text-lg">Idioma</h4>
+          <h4 class="font-medium text-lg">Idioma</h4>
           <p>{{ movie.spoken_languages[0].name }}</p>
         </div>
         <div>
-          <h4 class="font-semibold text-lg">Orçamento</h4>
+          <h4 class="font-medium text-lg">Orçamento</h4>
           <p>{{ movie.budget | currency : "USD" : "symbol" }}</p>
         </div>
         <div>
-          <h4 class="font-semibold text-lg">Receita</h4>
+          <h4 class="font-medium text-lg">Receita</h4>
           <p>{{ movie.revenue | currency : "USD" : "symbol" }}</p>
         </div>
       </div>
-      <h4>Elenco</h4>
-      <div>
-        @for (actor of cast; track $index) {
-        <app-actor-card [actor]="actor"></app-actor-card>
-        }
-      </div>
-    </article>
+    </div>
+    <div class="absolute inset-0 bg-black bg-opacity-70 rounded-2xl z-0"></div>
   </div>
+  <article class="flex gap-4 flex-col">
+    <h4 class="text-2xl">Elenco</h4>
+    <div class="flex gap-4 flex-wrap">
+      @for (actor of cast; track $index) {
+      <app-actor-card [actor]="actor"></app-actor-card>
+      }
+    </div>
+  </article>
 </section>
