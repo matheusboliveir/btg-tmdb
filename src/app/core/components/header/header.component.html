@@ -1,0 +1,32 @@
+<mat-toolbar class="flex gap-4 items-center">
+  <a routerLink="/home" class="w-40 flex-none">
+    <svg-icon src="assets/svg/logo.svg"></svg-icon>
+  </a>
+  <ul class="flex gap-4 justify-center flex-grow">
+    @for (item of headerItems; track $index) {
+    <li>
+      <a [routerLink]="item.route" routerLinkActive #rla="routerLinkActive">
+        @if (rla.isActive) {
+        <button mat-flat-button>{{ item.title }}</button>
+        } @else {
+        <button mat-stroked-button>{{ item.title }}</button>
+        }
+      </a>
+    </li>
+    }
+  </ul>
+  <div class="flex gap-2 min-w-60">
+    <label class="sr-only" for="search">Pesquisar Filme</label>
+    <input
+      id="search"
+      placeholder="Pesquisar filme"
+      type="search"
+      [(ngModel)]="search"
+      class="header__search shadow"
+      (keyup.enter)="searchMovie()"
+    />
+    <button mat-mini-fab aria-label="botão de pesquisa" (click)="searchMovie()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
