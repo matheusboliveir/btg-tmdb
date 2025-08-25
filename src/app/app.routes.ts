@@ -59,6 +59,23 @@ export const routes: Routes = [
     ],
   },
   {
+    path: CoreRoutes.DETAIL_MOVIE,
+    children: [
+      {
+        path: '',
+        redirectTo: CoreRoutes.HOME,
+        pathMatch: 'full',
+      },
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('./pages/detail-movie/detail-movie.component').then(
+            (m) => m.DetailMovieComponent
+          ),
+      },
+    ],
+  },
+  {
     path: '**',
     redirectTo: CoreRoutes.HOME,
   },

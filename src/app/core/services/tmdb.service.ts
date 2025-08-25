@@ -12,6 +12,8 @@ import { environment } from '../../../environments/environment';
 import { Genre } from '../@types/genre';
 import {
   GetGenresResponse,
+  GetMovieCreditsResponse,
+  GetMovieDetailResponse,
   GetMoviesByGenreResponse,
   GetNowPlayingResponse,
   GetPopularResponse,
@@ -92,6 +94,18 @@ export class TmdbService {
             })
           )
       )
+    );
+  }
+
+  public getDetailMovie(id: number): Observable<GetMovieDetailResponse> {
+    return this.http.get<GetMovieDetailResponse>(
+      `${environment.apiUrl}/movie/${id}?language=${this.language}`
+    );
+  }
+
+  public getCredits(id: number): Observable<GetMovieCreditsResponse> {
+    return this.http.get<GetMovieCreditsResponse>(
+      `${environment.apiUrl}/movie/${id}/credits?language=${this.language}`
     );
   }
 

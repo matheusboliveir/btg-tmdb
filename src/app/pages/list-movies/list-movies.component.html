@@ -2,7 +2,10 @@
   <h1 class="text-2xl font-bold">{{ title }}</h1>
   <div class="flex flex-wrap gap-4 mx-auto">
     @for (movie of movies; track $index) {
-    <app-movie-card [movie]="movie"></app-movie-card>
+    <app-movie-card
+      [movie]="movie"
+      (clickCard)="detailCard($event)"
+    ></app-movie-card>
     }
   </div>
   <mat-paginator
