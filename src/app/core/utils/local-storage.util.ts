@@ -1,4 +1,4 @@
-export class LocalStorageUtil {
+export class StorageUtil {
   public static setItem<T>(key: string, value: T): void {
     localStorage.setItem(key, JSON.stringify(value));
   }
@@ -8,6 +8,6 @@ export class LocalStorageUtil {
     return JSON.parse(stringValue) as T;
   }
   public static removeItem(key: string): void {
-    localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
   }
 }

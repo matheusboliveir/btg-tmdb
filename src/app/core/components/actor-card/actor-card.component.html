@@ -3,6 +3,7 @@
     mat-card-image
     class="aspect-square object-cover"
     loading="lazy"
+    decoding="async"
     [src]="imageBaseUrl + actor.profile_path"
     (error)="failToLoadImage($event)"
     [alt]="actor.name"

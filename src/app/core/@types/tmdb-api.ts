@@ -21,6 +21,8 @@ export type GetPopularResponse = GetNowPlayingResponse;
 
 export type GetMoviesByGenreResponse = GetNowPlayingResponse;
 
+export type GetSearchMoviesResponse = GetNowPlayingResponse;
+
 export type GetMovieDetailResponse = MovieDetail;
 
 export interface GetMovieCreditsResponse {

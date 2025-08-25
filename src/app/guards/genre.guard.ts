@@ -19,8 +19,6 @@ export const genreGuard: CanActivateFn = (route, state) => {
   return tmdb.getGenres().pipe(
     map((genres) => {
       const firstGenre = genres[0];
-      console.log('🎬', firstGenre);
-
       return createUrlTreeFromSnapshot(route, ['../../', firstGenre.id, 1]);
     })
   );

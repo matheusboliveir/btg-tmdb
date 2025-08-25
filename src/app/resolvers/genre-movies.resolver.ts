@@ -16,7 +16,7 @@ export const genreMoviesResolver: ResolveFn<Observable<ListMoviesResolver>> = (
     map((response) => ({
       title: 'Filmes de ' + response.genrerName,
       movies: response.results,
-      totalMovies: response.total_results,
+      totalMovies: response.total_pages * 19,
     }))
   );
 };

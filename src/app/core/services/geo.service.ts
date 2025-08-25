@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 import { GeoInfo } from '../@types/geo-info';
-import { LocalStorageUtil } from '../utils/local-storage.util';
+import { StorageUtil } from '../utils/local-storage.util';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class GeoService {
   private geoInfo!: BehaviorSubject<GeoInfo>;
 
   constructor() {
-    const geoInfoStorage = LocalStorageUtil.getItem<GeoInfo>(this.STORAGE_KEY);
+    const geoInfoStorage = StorageUtil.getItem<GeoInfo>(this.STORAGE_KEY);
     const oneDayAgo = new Date();
     oneDayAgo.setDate(oneDayAgo.getDate() - 1);
     if (
@@ -25,7 +25,7 @@ export class GeoService {
     ) {
       this.geoInfo = new BehaviorSubject<GeoInfo>(geoInfoStorage);
     } else {
-      LocalStorageUtil.removeItem(this.STORAGE_KEY);
+      StorageUtil.removeItem(this.STORAGE_KEY);
     }
   }
 
@@ -40,7 +40,7 @@ export class GeoService {
     return this.http.get<GeoInfo>(environment.geoApi).pipe(
       switchMap((geo) => {
         this.geoInfo = new BehaviorSubject<GeoInfo>(geo);
-        LocalStorageUtil.setItem(this.STORAGE_KEY, geo);
+        StorageUtil.setItem(this.STORAGE_KEY, geo);
         return this.geoInfo.asObservable();
       })
     );

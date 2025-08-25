@@ -17,6 +17,7 @@ import {
   GetMoviesByGenreResponse,
   GetNowPlayingResponse,
   GetPopularResponse,
+  GetSearchMoviesResponse,
   MovieResponseWithGenres,
 } from '../@types/tmdb-api';
 import { Movie, MovieWithGenres } from '../@types/movie';
@@ -109,6 +110,48 @@ export class TmdbService {
     );
   }
 
+  public getGenres(): Observable<Genre[]> {
+    const language = this.geo.getLanguage();
+    if (this.genres) {
+      return this.genres.asObservable();
+    }
+    return this.http
+      .get<GetGenresResponse>(
+        `${environment.apiUrl}/genre/movie/list?language=${language}`
+      )
+      .pipe(
+        map((response) => {
+          this.genres = new BehaviorSubject<Genre[]>(response.genres);
+          return response.genres;
+        })
+      );
+  }
+
+  public getSearchMovie(
+    text: string,
+    page: number
+  ): Observable<MovieResponseWithGenres> {
+    return this.loadGeoAndGenrers().pipe(
+      switchMap(({ country, genres }) =>
+        this.http
+          .get<GetSearchMoviesResponse>(`${environment.apiUrl}/search/movie`, {
+            params: {
+              language: this.language,
+              page,
+              region: country,
+              query: text,
+            },
+          })
+          .pipe(
+            map((response) => {
+              response.results = this.getMoviesGenres(response.results, genres);
+              return response as MovieResponseWithGenres;
+            })
+          )
+      )
+    );
+  }
+
   private get language(): string {
     return this.geo.getLanguage();
   }
@@ -134,23 +177,6 @@ export class TmdbService {
       country: this.geo.getCountryCode(),
       genres: this.getGenres(),
     });
-  }
-
-  public getGenres(): Observable<Genre[]> {
-    const language = this.geo.getLanguage();
-    if (this.genres) {
-      return this.genres.asObservable();
-    }
-    return this.http
-      .get<GetGenresResponse>(
-        `${environment.apiUrl}/genre/movie/list?language=${language}`
-      )
-      .pipe(
-        map((response) => {
-          this.genres = new BehaviorSubject<Genre[]>(response.genres);
-          return response.genres;
-        })
-      );
   }
 }
 

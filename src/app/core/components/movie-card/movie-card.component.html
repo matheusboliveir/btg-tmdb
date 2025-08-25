@@ -3,6 +3,7 @@
     mat-card-image
     class="cover object-cover"
     loading="lazy"
+    decoding="async"
     [src]="imageBaseUrl + movie.poster_path"
     (error)="failToLoadImage($event)"
     [alt]="movie.title"

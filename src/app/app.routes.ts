@@ -6,6 +6,7 @@ import { ListMoviesComponent } from './pages/list-movies/list-movies.component';
 import { nowPlayingResolver } from './resolvers/now-playing.resolver';
 import { popularResolver } from './resolvers/popular.resolver';
 import { genreMoviesResolver } from './resolvers/genre-movies.resolver';
+import { searchResolver } from './resolvers/search.resolver';
 
 export const routes: Routes = [
   {
@@ -72,6 +73,21 @@ export const routes: Routes = [
           import('./pages/detail-movie/detail-movie.component').then(
             (m) => m.DetailMovieComponent
           ),
+      },
+    ],
+  },
+  {
+    path: CoreRoutes.SEARCH,
+    children: [
+      {
+        path: '',
+        redirectTo: CoreRoutes.HOME,
+        pathMatch: 'full',
+      },
+      {
+        path: ':search/:page',
+        resolve: { listMovies: searchResolver },
+        component: ListMoviesComponent,
       },
     ],
   },

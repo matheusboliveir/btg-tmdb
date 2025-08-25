@@ -15,7 +15,7 @@ export const nowPlayingResolver: ResolveFn<Observable<ListMoviesResolver>> = (
     map((response) => ({
       title: 'Filmes em Cartaz',
       movies: response.results,
-      totalMovies: response.total_results,
+      totalMovies: response.total_pages * 19,
     }))
   );
 };

@@ -15,7 +15,7 @@ export const popularResolver: ResolveFn<Observable<ListMoviesResolver>> = (
     map((response) => ({
       title: 'Filmes Populares',
       movies: response.results,
-      totalMovies: response.total_results,
+      totalMovies: response.total_pages * 19,
     }))
   );
 };
