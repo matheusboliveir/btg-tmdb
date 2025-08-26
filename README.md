@@ -1,27 +1,30 @@
-# BtgTmdb
+Projeto feito gerado com Angular 18.2.20 e utilizando o Node v22.13.1, foi utilizado as seguintes bibliotecas adicionais:
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.20.
+- @angular/material - 18.2.10
+- @ngneat/until-destroy - 10.0.0
+- angular-svg-icon - 17.0.0
+- tailwindcss - 3.4.17
 
-## Development server
+Para rodar a aplicação basta instalar a partir do `npm install` e rodar com `npm start` disponibilizei temporariamente minha chave da API para facilitar o teste.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+[Ver online na Vercel](https://btg-tmdb.vercel.app/)
 
-## Code scaffolding
+# Telas
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Listagem de Filmes
 
-## Build
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/8d7594d5-9448-4672-b61a-24cda451a951" />
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Esta tela é reutilizada para a listagem de filmes em todas as outras abas
 
-## Running unit tests
+### Com busca por gênero
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/35189449-f3c4-4360-b895-f593ce1b4d82" />
 
-## Running end-to-end tests
+### Listando resultado da pesquisa
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/768d8669-2b12-4bc7-a6ac-f17c752e93fc" />
 
-## Further help
+## Detalhamento do Filme
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/98010a60-52af-492d-808d-dbdf1e282b80" />
