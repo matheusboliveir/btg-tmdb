@@ -17,9 +17,9 @@ describe('GeoService', () => {
 
     mockHttpClient = jasmine.createSpyObj<HttpClient>(['get']);
 
-    spyOn(localStorage, 'setItem').and.callFake(() => {});
+    spyOn(localStorage, 'setItem').and.callFake(() => { });
 
-    spyOn(localStorage, 'removeItem').and.callFake(() => {});
+    spyOn(localStorage, 'removeItem').and.callFake(() => { });
 
     mockHttpClient.get.and.returnValue(of(geoMock));
 
@@ -74,12 +74,14 @@ describe('GeoService', () => {
       } as GeoInfo)
     );
 
+    const removeItem = spyOn(localStorage, 'removeItem');
+
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       providers: [{ provide: HttpClient, useValue: mockHttpClient }],
     });
     service = TestBed.inject(GeoService);
-    expect(localStorage.removeItem).toHaveBeenCalledWith('geoInfoForBtgTmdb');
+    expect(removeItem).toHaveBeenCalledWith('geoInfoForBtgTmdb');
   });
 
   it('deve retornar o código do país', (done) => {
