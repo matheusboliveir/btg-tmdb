@@ -7,6 +7,8 @@ Projeto feito gerado com Angular 18.2.20 e utilizando o Node v22.13.1, foi utili
 
 Para rodar a aplicação basta instalar a partir do `npm install` e rodar com `npm start` disponibilizei temporariamente minha chave da API para facilitar o teste.
 
+[Ver online na Vercel](https://btg-tmdb.vercel.app/)
+
 # Telas
 
 ## Listagem de Filmes
