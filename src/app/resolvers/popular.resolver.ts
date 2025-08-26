@@ -8,7 +8,7 @@ export const popularResolver: ResolveFn<Observable<ListMoviesResolver>> = (
   route,
   state
 ) => {
-  const page = Number(route.paramMap.get('page')) || 1;
+  const page = Number(route.paramMap.get('page'));
   const tmdb = inject(TmdbService);
 
   return tmdb.getPopular(page).pipe(

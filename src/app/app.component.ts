@@ -10,6 +10,4 @@ import { LoadingComponent } from './core/components/loading/loading.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  title = 'btg-tmdb';
-}
+export class AppComponent {}

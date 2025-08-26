@@ -8,6 +8,6 @@ export class StorageUtil {
     return JSON.parse(stringValue) as T;
   }
   public static removeItem(key: string): void {
-    sessionStorage.removeItem(key);
+    localStorage.removeItem(key);
   }
 }

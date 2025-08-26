@@ -1,4 +1,3 @@
-import { CoreRoutes } from './../core/config/core-routes';
 import {
   CanActivateFn,
   createUrlTreeFromSnapshot,
