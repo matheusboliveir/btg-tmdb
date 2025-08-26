@@ -8,6 +8,7 @@ import { GeoInfo } from '../@types/geo-info';
 describe('GeoService', () => {
   let service: GeoService;
   let mockHttpClient: jasmine.SpyObj<HttpClient>;
+  let removeItem: jasmine.SpyObj<(key: string) => void>;
 
   beforeEach(() => {
     const geoMock = {
@@ -19,7 +20,7 @@ describe('GeoService', () => {
 
     spyOn(localStorage, 'setItem').and.callFake(() => {});
 
-    spyOn(localStorage, 'removeItem').and.callFake(() => {});
+    removeItem = spyOn(localStorage, 'removeItem').and.callFake(() => {});
 
     mockHttpClient.get.and.returnValue(of(geoMock));
 
@@ -66,7 +67,6 @@ describe('GeoService', () => {
   it('deve apagar informações geográficas antigas do local storage', () => {
     const oldDate = new Date();
     oldDate.setDate(oldDate.getDate() - 2);
-
     spyOn(localStorage, 'getItem').and.returnValue(
       JSON.stringify({
         country_code: 'US',
@@ -78,8 +78,9 @@ describe('GeoService', () => {
     TestBed.configureTestingModule({
       providers: [{ provide: HttpClient, useValue: mockHttpClient }],
     });
+
     service = TestBed.inject(GeoService);
-    expect(localStorage.removeItem).toHaveBeenCalledWith('geoInfoForBtgTmdb');
+    expect(removeItem).toHaveBeenCalledWith('geoInfoForBtgTmdb');
   });
 
   it('deve retornar o código do país', (done) => {

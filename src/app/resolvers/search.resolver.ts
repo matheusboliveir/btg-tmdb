@@ -9,8 +9,8 @@ export const searchResolver: ResolveFn<Observable<ListMoviesResolver>> = (
   state
 ) => {
   const tmdb = inject(TmdbService);
-  const search = route.paramMap.get('search') || '';
-  const page = Number(route.paramMap.get('page')) || 1;
+  const search = String(route.paramMap.get('search'));
+  const page = Number(route.paramMap.get('page'));
 
   return tmdb.getSearchMovie(search, page).pipe(
     map((result) => ({

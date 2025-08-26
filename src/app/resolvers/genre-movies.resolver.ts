@@ -8,8 +8,8 @@ export const genreMoviesResolver: ResolveFn<Observable<ListMoviesResolver>> = (
   route,
   state
 ) => {
-  const id = Number(route.paramMap.get('id')) || 1;
-  const page = Number(route.paramMap.get('page')) || 1;
+  const id = Number(route.paramMap.get('id'));
+  const page = Number(route.paramMap.get('page'));
   const tmdb = inject(TmdbService);
 
   return tmdb.getMoviesByGenre(id, page).pipe(

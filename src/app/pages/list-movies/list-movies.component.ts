@@ -36,7 +36,7 @@ export class ListMoviesComponent implements OnInit {
         this.movies = listMovies.movies;
         this.title = listMovies.title;
         this.totalMovies = listMovies.totalMovies;
-        this.currentPage = Number(params['page']) || 1;
+        this.currentPage = Number(params['page']);
       });
   }
 
