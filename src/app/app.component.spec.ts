@@ -1,29 +1,35 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { provideRouter } from '@angular/router';
+import { ListMoviesComponent } from './pages/list-movies/list-movies.component';
+import { SpyLocation } from '@angular/common/testing';
+import { SvgIconRegistryService } from 'angular-svg-icon';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
   beforeEach(async () => {
+    const svgIconRegistryServiceSpy =
+      jasmine.createSpyObj<SvgIconRegistryService>(['addSvg', 'loadSvg']);
+
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [
+        provideRouter([
+          { path: '**', redirectTo: '' },
+          { path: '', component: ListMoviesComponent },
+        ]),
+        {
+          provide: SvgIconRegistryService,
+          useValue: svgIconRegistryServiceSpy,
+        },
+        { provide: Location, useClass: SpyLocation },
+      ],
     }).compileComponents();
+    const fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'btg-tmdb' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('btg-tmdb');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, btg-tmdb');
+  it('should be created', () => {
+    expect(component).toBeTruthy();
   });
 });
